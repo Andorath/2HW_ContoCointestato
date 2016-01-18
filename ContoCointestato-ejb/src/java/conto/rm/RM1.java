@@ -2,18 +2,18 @@ package conto.rm;
 
 import conto.payload.Abort;
 import conto.payload.Commitment;
-import conto.payload.Operation;
 import conto.payload.Request;
-import java.io.Serializable;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
+
 import javax.xml.ws.WebServiceRef;
 
 /**
@@ -41,8 +41,9 @@ public class RM1 extends ReplicaManager
     @Override
     public void processMessage(Message message)
     {
+        
         try
-        { 
+        {             
             Object body = message.getBody(Object.class);
             
             if (body instanceof Request)

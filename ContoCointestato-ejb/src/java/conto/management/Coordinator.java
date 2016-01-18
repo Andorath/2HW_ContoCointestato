@@ -2,8 +2,6 @@ package conto.management;
 
 import conto.payload.Proposal;
 import conto.payload.ReadReply;
-import conto.record.OperationRecord;
-import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -25,5 +23,6 @@ public interface Coordinator
     public void submitReadReply(ReadReply rr);
 
     String getReadResult();
-    
+
+    Boolean getWriteResult();  
 }

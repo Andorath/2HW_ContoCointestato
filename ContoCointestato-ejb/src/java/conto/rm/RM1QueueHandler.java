@@ -7,20 +7,30 @@ import conto.payload.Proposal;
 import conto.payload.Read;
 import conto.payload.ReadReply;
 import conto.payload.Request;
+
 import conto.record.OperationRecord;
 import conto.record.PendingRequest;
+
 import conto.timestamp.RMTimestamp;
+
 import java.io.Serializable;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+
 import javax.ejb.Singleton;
+
 import javax.inject.Inject;
+
+import javax.jms.Destination;
 import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
+
 import javax.xml.ws.WebServiceRef;
 
 /**
@@ -65,7 +75,7 @@ public class RM1QueueHandler implements RM1QueueHandlerLocal
         if(request instanceof Operation)
         {
             Proposal myProposal = new Proposal(messageID, timestamp);
-            sendJMSMessageToRMQueue(myProposal);
+            sendJMSMessageToRMQueue(request.getReplyTo(), myProposal);
         }
         else if(request instanceof Read)
         {
@@ -146,14 +156,14 @@ public class RM1QueueHandler implements RM1QueueHandlerLocal
             List<OperationRecord> operationsList = getAllOperations1();
             
             ReadReply rr = new ReadReply(p.getMessageID(), replicaVersion, operationsList); //leggo da DB
-            sendJMSMessageToRMQueue(rr);
+            sendJMSMessageToRMQueue(p.getRequest().getReplyTo(), rr);
         }
         
     }
     
-    private void sendJMSMessageToRMQueue(Serializable s)
+    private void sendJMSMessageToRMQueue(Destination d, Serializable s)
     {
-        context.createProducer().send(rMQueue, s);
+        context.createProducer().send(d, s);
     }
     
     private void createEntry(String operationID, String userID, double operationValue)
@@ -178,7 +188,8 @@ public class RM1QueueHandler implements RM1QueueHandlerLocal
     
     private List<OperationRecord> getAllOperations1()
     {
-        List<conto.rm.Conto> operationsListPorted = findAll();
+        //richiamo la findAll, gli oggetti di tipo conto funzionano
+        List<conto.rm.Conto> operationsListPorted = findAll(); 
         
         List<OperationRecord> operationsList = new LinkedList<>();
         

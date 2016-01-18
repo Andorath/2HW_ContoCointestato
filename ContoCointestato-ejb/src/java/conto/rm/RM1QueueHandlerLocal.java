@@ -3,6 +3,7 @@ package conto.rm;
 import conto.payload.Abort;
 import conto.payload.Commitment;
 import conto.payload.Request;
+
 import javax.ejb.Local;
 
 /**
@@ -12,7 +13,6 @@ import javax.ejb.Local;
 @Local
 public interface RM1QueueHandlerLocal
 {
-
     void enqueue(String messageID, Request request);
 
     void commit(Commitment c);

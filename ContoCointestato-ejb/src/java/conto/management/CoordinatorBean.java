@@ -27,13 +27,15 @@ import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
 
 import javax.inject.Inject;
+import javax.jms.Destination;
 
 import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Topic;
-import javax.security.auth.login.FailedLoginException;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -64,6 +66,9 @@ public class CoordinatorBean implements Coordinator
     //risultato dell'operazione di lettura
     private List<OperationRecord> readResults;
     
+    //risultato della scrittura
+    private Boolean success = null;
+    
     @PostConstruct
     public void initialize()
     {
@@ -74,7 +79,18 @@ public class CoordinatorBean implements Coordinator
     
     private Message sendRequestMessage(Request r)
     {
-        return sendJMSMessageToRMTopic(r);
+        try
+        {
+            Destination d = InitialContext.doLookup("jms/RMQueue");
+            r.setReplyTo(d);
+            return sendJMSMessageToRMTopic(r);
+        } 
+        catch (NamingException ex)
+        {
+            Logger.getLogger(CoordinatorBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 
     
@@ -91,6 +107,7 @@ public class CoordinatorBean implements Coordinator
     public void deposit(String userID, double operationValue)
     {
         Operation o = new Operation(userID, Operation.OperationType.DEPOSIT, operationValue);
+        success = null;
         
         try
         {
@@ -105,6 +122,7 @@ public class CoordinatorBean implements Coordinator
     public void withdraw(String userID, double operationValue)
     {
         Operation o = new Operation(userID, Operation.OperationType.WITHDRAW, operationValue);
+        success = null;
         
         try
         {
@@ -130,7 +148,7 @@ public class CoordinatorBean implements Coordinator
         Message m = context.createObjectMessage(s);
         context.createProducer().send(rMTopic, s);
         return m;
-    }
+    }    
     
     @Override
     public void submitReadReply(ReadReply rr)
@@ -138,7 +156,7 @@ public class CoordinatorBean implements Coordinator
         if (quorumReadList.isEmpty())
         {
             quorumReadList.add(rr);
-            timeService.createSingleActionTimer(3 * 1000, new TimerConfig("ReadQuorum", false));
+            timeService.createSingleActionTimer(1 * 1000, new TimerConfig("ReadQuorum", false));
         }
         else
         {
@@ -152,7 +170,7 @@ public class CoordinatorBean implements Coordinator
         if (quorumWriteList.isEmpty())
         {
             quorumWriteList.add(p);
-            timeService.createSingleActionTimer(3 * 1000, new TimerConfig("WriteQuorum", false));
+            timeService.createSingleActionTimer(1 * 1000, new TimerConfig("WriteQuorum", false));
         }
         else
         {
@@ -170,6 +188,7 @@ public class CoordinatorBean implements Coordinator
             
             case "ReadQuorum":
             {
+                System.out.println("QUORUM LETTURA");
                 if(isSatisfiedQuorum())
                 {
                     createReadResult();
@@ -177,6 +196,7 @@ public class CoordinatorBean implements Coordinator
                 else
                 {
                     System.out.println("QUORUM LETTURA FALLITO!");
+                    
                     //per ritornare il risultato sbagliato al client
                     readResults.add(new OperationRecord(null, null, 0, 0));
                     quorumReadList.clear();
@@ -193,11 +213,13 @@ public class CoordinatorBean implements Coordinator
                 {
                     Commitment commit = createCommit();
                     sendCommit(commit);
+                    success = true;
                 }
                 else
                 {
                     Abort abort = createAbort();
                     sendAbort(abort);
+                    success = false;
                 }
 
                 processingRequest = null;
@@ -249,7 +271,7 @@ public class CoordinatorBean implements Coordinator
     @Override
     public String getReadResult()
     {
-        String result = null;
+        String result = "";
         
         if(!readResults.isEmpty() && readResults.get(0).getOperationID() == null)
         {
@@ -261,4 +283,11 @@ public class CoordinatorBean implements Coordinator
         
         return result;
     }
+
+    @Override
+    public Boolean getWriteResult()
+    {
+        return (success != null) ? success : null;
+    }
+    
 }

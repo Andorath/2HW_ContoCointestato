@@ -3,7 +3,6 @@ package conto.rm;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
-
 /**
  *
  * @author Damiano Di Stefano, Marco Giuseppe Salafia

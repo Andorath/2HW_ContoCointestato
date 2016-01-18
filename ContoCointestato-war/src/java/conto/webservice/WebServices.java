@@ -59,4 +59,16 @@ public class WebServices
         //TODO write your implementation code here:
         return coordinator.getReadResult();
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getWriteResult")
+    public Boolean getWriteResult()
+    {
+        return coordinator.getWriteResult();
+    }
+    
+    
+    
 }
