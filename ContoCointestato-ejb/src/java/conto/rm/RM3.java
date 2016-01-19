@@ -14,8 +14,6 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 
-import javax.xml.ws.WebServiceRef;
-
 /**
  *
  * @author Damiano Di Stefano, Marco Giuseppe Salafia
@@ -25,13 +23,13 @@ import javax.xml.ws.WebServiceRef;
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/RMTopic")
 })
-public class RM1 extends ReplicaManager
+public class RM3 extends ReplicaManager
 {
 
     @EJB
-    private RM1QueueHandlerLocal handler;
+    private RM3QueueHandlerLocal handler;
     
-    public RM1()
+    public RM3()
     {
     }
     

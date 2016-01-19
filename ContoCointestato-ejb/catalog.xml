@@ -3,4 +3,12 @@
     <system systemId="http://localhost:8080/Entity1/Entity1WebService?WSDL" uri="src/conf/xml-resources/web-service-references/Entity1WebService_1/wsdl/localhost_8080/Entity1/Entity1WebService.wsdl"/>
     <system systemId="http://localhost:8080/Entity1/Entity1WebService?wsdl" uri="src/conf/xml-resources/web-service-references/Entity1WebService/wsdl/localhost_8080/Entity1/Entity1WebService.wsdl"/>
     <system systemId="http://localhost:8080/Entity1/Entity1WebService?xsd=1" uri="src/conf/xml-resources/web-service-references/Entity1WebService/wsdl/localhost_8080/Entity1/Entity1WebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Entity2/Entity1WebService?wsdl" uri="src/conf/xml-resources/web-service-references/Entity1WebService_1/wsdl/localhost_8080/Entity2/Entity1WebService.wsdl"/>
+    <system systemId="http://localhost:8080/Entity2/Entity1WebService?xsd=1" uri="src/conf/xml-resources/web-service-references/Entity1WebService_1/wsdl/localhost_8080/Entity2/Entity1WebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Entity3/Entity1WebService?wsdl" uri="src/conf/xml-resources/web-service-references/Entity1WebService_2/wsdl/localhost_8080/Entity3/Entity1WebService.wsdl"/>
+    <system systemId="http://localhost:8080/Entity3/Entity1WebService?xsd=1" uri="src/conf/xml-resources/web-service-references/Entity1WebService_2/wsdl/localhost_8080/Entity3/Entity1WebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Entity2/Entity2WebService?wsdl" uri="src/conf/xml-resources/web-service-references/Entity2WebService/wsdl/localhost_8080/Entity2/Entity2WebService.wsdl"/>
+    <system systemId="http://localhost:8080/Entity2/Entity2WebService?xsd=1" uri="src/conf/xml-resources/web-service-references/Entity2WebService/wsdl/localhost_8080/Entity2/Entity2WebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Entity3/Entity3WebService?wsdl" uri="src/conf/xml-resources/web-service-references/Entity3WebService/wsdl/localhost_8080/Entity3/Entity3WebService.wsdl"/>
+    <system systemId="http://localhost:8080/Entity3/Entity3WebService?xsd=1" uri="src/conf/xml-resources/web-service-references/Entity3WebService/wsdl/localhost_8080/Entity3/Entity3WebService.xsd_1.xsd"/>
 </catalog>

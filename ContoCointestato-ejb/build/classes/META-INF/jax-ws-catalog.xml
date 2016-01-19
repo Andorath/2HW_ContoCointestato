@@ -2,4 +2,8 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:8080/Entity1/Entity1WebService?wsdl" uri="wsdl/localhost_8080/Entity1/Entity1WebService.wsdl"/>
     <system systemId="http://localhost:8080/Entity1/Entity1WebService?xsd=1" uri="wsdl/localhost_8080/Entity1/Entity1WebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Entity2/Entity2WebService?wsdl" uri="wsdl/localhost_8080/Entity2/Entity2WebService.wsdl"/>
+    <system systemId="http://localhost:8080/Entity2/Entity2WebService?xsd=1" uri="wsdl/localhost_8080/Entity2/Entity2WebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/Entity3/Entity3WebService?wsdl" uri="wsdl/localhost_8080/Entity3/Entity3WebService.wsdl"/>
+    <system systemId="http://localhost:8080/Entity3/Entity3WebService?xsd=1" uri="wsdl/localhost_8080/Entity3/Entity3WebService.xsd_1.xsd"/>
 </catalog>

@@ -25,13 +25,13 @@ import javax.xml.ws.WebServiceRef;
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/RMTopic")
 })
-public class RM1 extends ReplicaManager
+public class RM2 extends ReplicaManager
 {
 
     @EJB
-    private RM1QueueHandlerLocal handler;
+    private RM2QueueHandlerLocal handler;
     
-    public RM1()
+    public RM2()
     {
     }
     

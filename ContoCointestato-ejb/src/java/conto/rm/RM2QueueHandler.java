@@ -38,8 +38,11 @@ import javax.xml.ws.WebServiceRef;
  * @author Damiano Di Stefano, Marco Giuseppe Salafia
  */
 @Singleton
-public class RM1QueueHandler implements RM1QueueHandlerLocal
+public class RM2QueueHandler implements RM2QueueHandlerLocal
 {
+
+    @WebServiceRef(wsdlLocation = "META-INF/wsdl/localhost_8080/Entity2/Entity2WebService.wsdl")
+    private conto.ws.Entity2WebService_Service service;
 
     @Resource(mappedName = "jms/RMQueue")
     private Queue rMQueue;
@@ -47,9 +50,6 @@ public class RM1QueueHandler implements RM1QueueHandlerLocal
     @Inject
     @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
     private JMSContext context;
-
-    @WebServiceRef(wsdlLocation = "META-INF/wsdl/localhost_8080/Entity1/Entity1WebService.wsdl")
-    private Entity1WebService_Service service;
     
     private LinkedList<PendingRequest> pendingQueue;
     private RMTimestamp timestamp;
@@ -166,34 +166,34 @@ public class RM1QueueHandler implements RM1QueueHandlerLocal
         context.createProducer().send(d, s);
     }
     
-    private void createEntry(String operationID, String userID, double operationValue)
-    {
-        conto.rm.Entity1WebService port = service.getEntity1WebServicePort();
-        port.createEntry(operationID, userID, operationValue);
-    }
-    
     private List<OperationRecord> getAllOperations()
     {
         //richiamo la findAll, gli oggetti di tipo conto funzionano
-        List<conto.rm.Conto> operationsListPorted = findAll(); 
+        List<conto.ws.Conto> operationsListPorted = findAll(); 
         
         List<OperationRecord> operationsList = new LinkedList<>();
         
-        for(conto.rm.Conto o: operationsListPorted)
+        for(conto.ws.Conto o: operationsListPorted)
         {
-            operationsList.add(new OperationRecord(o.operationID, o.userID, o.operationValue, Long.parseLong(o.operationDate)));
+            operationsList.add(new OperationRecord(o.getOperationID(), o.getUserID(), o.getOperationValue(), Long.parseLong(o.getOperationDate())));
         }
         return operationsList;
         
     }
 
-    private java.util.List<conto.rm.Conto> findAll()
+    private void createEntry(java.lang.String operationID, java.lang.String userID, double operationValue)
     {
-        conto.rm.Entity1WebService port = service.getEntity1WebServicePort();
-        return port.findAll();
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        conto.ws.Entity2WebService port = service.getEntity2WebServicePort();
+        port.createEntry(operationID, userID, operationValue);
     }
 
-    
-    
-    
+    private java.util.List<conto.ws.Conto> findAll()
+    {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        conto.ws.Entity2WebService port = service.getEntity2WebServicePort();
+        return port.findAll();
+    }
 }

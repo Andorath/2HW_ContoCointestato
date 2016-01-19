@@ -41,5 +41,39 @@
         <delete dir="${build.generated.dir}/jax-wsCache/Entity1WebService"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/conto/rm"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-Entity1WebService"/>
+    <target name="wsimport-client-Entity2WebService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Entity2WebService"/>
+        <property name="wsdl-Entity2WebService" location="${meta.inf}/xml-resources/web-service-references/Entity2WebService/wsdl/localhost_8080/Entity2/Entity2WebService.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Entity2WebService" destdir="${build.generated.dir}/jax-wsCache/Entity2WebService" wsdl="${wsdl-Entity2WebService}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Entity2/Entity2WebService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Entity2WebService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Entity2WebService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Entity2WebService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Entity2WebService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Entity2WebService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/conto/ws"/>
+    </target>
+    <target name="wsimport-client-Entity3WebService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Entity3WebService"/>
+        <property name="wsdl-Entity3WebService" location="${meta.inf}/xml-resources/web-service-references/Entity3WebService/wsdl/localhost_8080/Entity3/Entity3WebService.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Entity3WebService" destdir="${build.generated.dir}/jax-wsCache/Entity3WebService" wsdl="${wsdl-Entity3WebService}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Entity3/Entity3WebService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Entity3WebService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Entity3WebService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Entity3WebService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Entity3WebService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Entity3WebService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/conto/ws"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Entity1WebService, wsimport-client-Entity2WebService, wsimport-client-Entity3WebService"/>
 </project>

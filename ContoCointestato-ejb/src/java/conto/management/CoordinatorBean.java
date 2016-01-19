@@ -156,7 +156,7 @@ public class CoordinatorBean implements Coordinator
         if (quorumReadList.isEmpty())
         {
             quorumReadList.add(rr);
-            timeService.createSingleActionTimer(1 * 1000, new TimerConfig("ReadQuorum", false));
+            timeService.createSingleActionTimer(300, new TimerConfig("ReadQuorum", false));
         }
         else
         {
@@ -170,7 +170,7 @@ public class CoordinatorBean implements Coordinator
         if (quorumWriteList.isEmpty())
         {
             quorumWriteList.add(p);
-            timeService.createSingleActionTimer(1 * 1000, new TimerConfig("WriteQuorum", false));
+            timeService.createSingleActionTimer(300, new TimerConfig("WriteQuorum", false));
         }
         else
         {
