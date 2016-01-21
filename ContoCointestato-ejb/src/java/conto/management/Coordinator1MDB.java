@@ -24,12 +24,12 @@ import javax.jms.ObjectMessage;
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/RMQueue")
 })
-public class CoordinatorMDB implements MessageListener
+public class Coordinator1MDB implements MessageListener
 {
     @EJB
-    private Coordinator coordinatorBean;
+    private Coordinator1 coordinatorBean;
     
-    public CoordinatorMDB()
+    public Coordinator1MDB()
     {
     }
     
@@ -50,6 +50,8 @@ public class CoordinatorMDB implements MessageListener
                     
                 } else if (body instanceof Proposal)
                 {
+                    System.out.println("\n\n[COO1] Ricevuta proposta -> " + ((Proposal) body).getTimestamp() + 
+                            " per la richiesta -> "+ ((Proposal) body).getMessageID() + "\n\n");
                     Proposal p = (Proposal) body;
                     coordinatorBean.submitProposal(p);  //quorum scrittura
                 }
@@ -61,10 +63,10 @@ public class CoordinatorMDB implements MessageListener
             
         } catch (JMSException ex)
         {
-            Logger.getLogger(CoordinatorMDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Coordinator1MDB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex)
         {
-            Logger.getLogger(CoordinatorMDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Coordinator1MDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

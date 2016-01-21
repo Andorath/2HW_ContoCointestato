@@ -1,6 +1,5 @@
 package conto.webservice;
 
-import conto.management.Coordinator;
 import conto.rm.OperationRecord;
 import java.util.List;
 import javax.ejb.EJB;
@@ -8,6 +7,7 @@ import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import conto.management.Coordinator1;
 
 /**
  *
@@ -17,7 +17,7 @@ import javax.jws.WebService;
 public class WebServices
 {
     @EJB
-    private Coordinator coordinator;
+    private Coordinator1 coordinator;
     
     /**
      * Web service operation

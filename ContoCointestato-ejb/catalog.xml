@@ -11,4 +11,8 @@
     <system systemId="http://localhost:8080/Entity2/Entity2WebService?xsd=1" uri="src/conf/xml-resources/web-service-references/Entity2WebService/wsdl/localhost_8080/Entity2/Entity2WebService.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Entity3/Entity3WebService?wsdl" uri="src/conf/xml-resources/web-service-references/Entity3WebService/wsdl/localhost_8080/Entity3/Entity3WebService.wsdl"/>
     <system systemId="http://localhost:8080/Entity3/Entity3WebService?xsd=1" uri="src/conf/xml-resources/web-service-references/Entity3WebService/wsdl/localhost_8080/Entity3/Entity3WebService.xsd_1.xsd"/>
+    <system systemId="http://172.16.105.185:8080/FaulDetector-war/NewWebService?WSDL" uri="src/conf/xml-resources/web-service-references/NewWebService/wsdl/172.16.105.185_8080/FaulDetector-war/NewWebService.wsdl"/>
+    <system systemId="http://172.16.105.185:8080/FaulDetector-war/NewWebService?xsd=1" uri="src/conf/xml-resources/web-service-references/NewWebService/wsdl/172.16.105.185_8080/FaulDetector-war/NewWebService.xsd_1.xsd"/>
+    <system systemId="http://172.16.105.185:8080/FaulDetector-war/FaultDetectorWS?WSDL" uri="src/conf/xml-resources/web-service-references/FaultDetectorWS/wsdl/172.16.105.185_8080/FaulDetector-war/FaultDetectorWS.wsdl"/>
+    <system systemId="http://172.16.105.185:8080/FaulDetector-war/FaultDetectorWS?xsd=1" uri="src/conf/xml-resources/web-service-references/FaultDetectorWS/wsdl/172.16.105.185_8080/FaulDetector-war/FaultDetectorWS.xsd_1.xsd"/>
 </catalog>

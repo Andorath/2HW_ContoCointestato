@@ -4,6 +4,12 @@
     <service name="WebServices">
       <implementation-class>conto.webservice.WebServices</implementation-class>
     </service>
+    <service name="WebService2">
+      <implementation-class>conto.webservice.WebService2</implementation-class>
+    </service>
+    <service name="LoadBalancerWebService">
+      <implementation-class>conto.webservice.LoadBalancerWebService</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

@@ -9,9 +9,8 @@ import javax.ejb.Local;
  * @author Damiano Di Stefano, Marco Giuseppe Salafia
  */
 @Local
-public interface Coordinator
+public interface Coordinator2
 {
-
     void deposit(String userID, double operationValue);
 
     void withdraw(String userID, double operationValue);

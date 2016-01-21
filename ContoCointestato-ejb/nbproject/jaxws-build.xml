@@ -75,5 +75,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/Entity3WebService"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/conto/ws"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-Entity1WebService, wsimport-client-Entity2WebService, wsimport-client-Entity3WebService"/>
+    <target name="wsimport-client-FaultDetectorWS" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/FaultDetectorWS"/>
+        <property name="wsdl-FaultDetectorWS" location="${meta.inf}/xml-resources/web-service-references/FaultDetectorWS/wsdl/172.16.105.185_8080/FaulDetector-war/FaultDetectorWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/FaultDetectorWS" destdir="${build.generated.dir}/jax-wsCache/FaultDetectorWS" wsdl="${wsdl-FaultDetectorWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://172.16.105.185:8080/FaulDetector-war/FaultDetectorWS?WSDL" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-FaultDetectorWS}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/FaultDetectorWS"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/FaultDetectorWS">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-FaultDetectorWS" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/FaultDetectorWS"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/fault/ws"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Entity1WebService, wsimport-client-Entity2WebService, wsimport-client-Entity3WebService, wsimport-client-FaultDetectorWS"/>
 </project>
